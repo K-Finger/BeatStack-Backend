@@ -36,7 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sessions', 
+
+    #3rd party
     "debug_toolbar",
+
+    #custom apps
+    "tags",
+    "users",
 ]
 
 MIDDLEWARE = [
