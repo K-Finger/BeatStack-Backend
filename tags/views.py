@@ -1,14 +1,14 @@
-from django.http import JsonResponse
-import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+@api_view(['POST'])
 def generate_tags(request):
-    if request.method == 'POST':
-        body = json.loads(request.body)
-        title = body.get('title', '')
+    title = request.data.get('title', '')
+    
+    if not title:
+        return Response({'tags': []})
 
-        # TODO: Get tags
-        tags = 0
+    
+    tags = title.lower().split()
 
-        return JsonResponse({'tags': tags})
-    else:
-        return JsonResponse({'error': 'Only POST method is allowed'}, status=405)
+    return Response({'tags': tags})
