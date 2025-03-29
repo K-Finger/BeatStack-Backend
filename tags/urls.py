@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('api_success/', views.api_success)
+    path('generate/', views.generate_tags, name='generate_tags')
 ]
