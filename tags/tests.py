@@ -16,4 +16,12 @@ class GenerateTagsTestCase(APITestCase):
         self.assertIn('tags', json_data)
         self.assertIn('gunna', json_data['tags'])
 
-    
+    def test_generate_tags_missing_title(self):
+        url = reverse('generate_tags')
+        data = {}
+
+        response = self.client.post(url, data, format='json')
+        json_data = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_data['tags'], [])
