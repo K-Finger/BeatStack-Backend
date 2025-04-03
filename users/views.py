@@ -1,12 +1,17 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserRegistrationSerializer
+
+from users.serializers import UserRegistrationSerializer
 
 @api_view(['POST'])
-def register(request):
+def registration_view (request):
     serializer = UserRegistrationSerializer(data=request.data)
+    data = {}
     if serializer.is_valid():
         user = serializer.save()
-        return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        data['response'] = 'successfully registered new user.'
+        data['email'] = user.email
+    else:
+        data = serializer.errors
+    return Response(data)
